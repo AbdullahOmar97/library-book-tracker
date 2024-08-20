@@ -1,26 +1,26 @@
-// app/page.js
 "use client";
 
 import { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import BookForm from '../components/BookForm';
-import Toast from '../components/Toast';
+import BooksList from '../components/BooksList';
+import ToastNotification from '../components/ToastNotification';
 
 export default function Home() {
-  const [lastAddedBook, setLastAddedBook] = useState(null);
+  const [books, setBooks] = useState([]);
 
-  const handleAddBook = (book) => {
-    setLastAddedBook(`Added: ${book.title} by ${book.author}`);
-    setTimeout(() => setLastAddedBook(null), 3000);
+  const addBook = (book) => {
+    setBooks((prevBooks) => [...prevBooks, book]);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="p-4">
-        <BookForm onAddBook={handleAddBook} />
-        <Toast message={lastAddedBook} />
+      <main className="flex-grow p-8 bg-gray-100">
+        <BookForm addBook={addBook} />
+        <BooksList books={books} />
+        <ToastNotification />
       </main>
       <Footer />
     </div>
