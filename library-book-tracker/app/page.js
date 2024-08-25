@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import BookForm from '../components/BookForm';
 import BooksList from '../components/BooksList';
 import ToastNotification from '../components/ToastNotification';
+import { ThemeProvider } from './context/ThemeContext';
 
 export default function Home() {
   const [books, setBooks] = useState([]);
@@ -16,6 +17,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ThemeProvider>
+      <AuthProvider>
       <Header />
       <main className="flex-grow p-8 bg-gray-100">
         <BookForm addBook={addBook} />
@@ -23,6 +26,8 @@ export default function Home() {
         <ToastNotification />
       </main>
       <Footer />
+      </AuthProvider>
+      </ThemeProvider>
     </div>
   );
 }
